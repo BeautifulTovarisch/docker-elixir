@@ -1,0 +1,21 @@
+version: "3.7"
+services:
+
+  client:
+    env_file: .env
+    build:
+      context: ./client
+      target: build
+    ports:
+      - "${WEBPACK_PORT}:${WEBPACK_PORT}"
+    volumes:
+      - ./client:/app
+      - client_modules:/app/node_modules
+    networks:
+      - frontend
+
+networks:
+  frontend:
+
+volumes:
+  client_modules:
