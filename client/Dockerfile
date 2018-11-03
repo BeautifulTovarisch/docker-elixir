@@ -1,4 +1,4 @@
-FROM node:8.11.3 as build
+FROM node:8.11.3 as dev
 WORKDIR /app
 
 COPY package.json .

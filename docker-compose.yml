@@ -5,7 +5,7 @@ services:
     env_file: .env
     build:
       context: ./client
-      target: build
+      target: dev
     ports:
       - "${WEBPACK_PORT}:${WEBPACK_PORT}"
     volumes:
@@ -14,7 +14,19 @@ services:
     networks:
       - frontend
 
+  server:
+    env_file: .env
+    build:
+      context: ./server
+      target: dev
+    volumes:
+      - ./server/:/app
+    networks:
+      - frontend
+      - backend
+
 networks:
+  backend:
   frontend:
 
 volumes:
