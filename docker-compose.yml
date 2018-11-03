@@ -20,9 +20,19 @@ services:
       context: ./server
       target: dev
     volumes:
-      - ./server/:/app
+      - ./server:/app
     networks:
       - frontend
+      - backend
+    depends_on:
+      - database
+
+  database:
+    env_file: .env
+    image: postgres:10-alpine
+    volumes:
+      - database:/var/lib/postgresql/data
+    networks:
       - backend
 
 networks:
@@ -30,4 +40,5 @@ networks:
   frontend:
 
 volumes:
+  database:
   client_modules:
