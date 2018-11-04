@@ -17,6 +17,7 @@ services:
 
   server:
     env_file: .env
+    user: "${USER}:${USER}"
     build:
       context: ./server
       target: dev
