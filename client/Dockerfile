@@ -1,34 +1,40 @@
 FROM node:8.12.0 as dev
 
-RUN addgroup --gid 999 nodejs
+WORKDIR /app
 
-RUN adduser --gecos \
-    --disabled-password \
-    --uid 999 \
-    --gid 999 \
-    nodejs
-
-USER nodejs
-
-WORKDIR /home/nodejs
+RUN chown -R node:node /app
 
 COPY package.json .
 COPY yarn.lock .
 
 RUN yarn
 
-COPY --chown=nodejs:nodejs . /home/nodejs
+COPY --chown=node:node . /app
 
 RUN yarn run build
+
+USER node
 
 CMD [ "npm", "start" ]
 
 # Production Image
 
-FROM nginx:1.15.2-alpine
+FROM nginx:1.15.2 as production
 
-COPY --from=build /home/nodejs/dist /home/nodejs/www
-COPY --from=build /home/nodejs/index.html /home/nodejs/www/index.html
+RUN addgroup --gid 999 nginx
+
+RUN adduser --gecos \
+    --disabled-password \
+    --uid 999 \
+    --gid 999 \
+    nginx
+
+USER nginx
+
+WORKDIR /home/nodejs
+
+COPY --from=build /app/dist /home/nginx/www
+COPY --from=build /app/index.html /home/nginx/www/index.html
 
 COPY nginx.conf /etc/nginx/
 

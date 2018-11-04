@@ -11,13 +11,8 @@ USER elixir
 
 WORKDIR /home/elixir
 
-COPY mix.exs /home/elixir
-
-RUN mix local.hex --if-missing
-RUN mix deps.get
-
 COPY --chown=elixir:elixir . /home/elixir
 
-RUN mix compile
-
-RUN ls -lrt
+# recommended force for non-interactive use
+RUN mix local.hex --force
+RUN mix deps.get

@@ -3,21 +3,21 @@ services:
 
   client:
     env_file: .env
-    user: "nodejs"
+    user: "node:node"
     build:
       context: ./client
       target: dev
     ports:
       - "${WEBPACK_PORT}:${WEBPACK_PORT}"
     volumes:
-      - ./client:/home/nodejs
-      - client_modules:/home/nodejs/node_modules
+      - ./client:/app
+      - client_modules:/app/node_modules
     networks:
       - frontend
 
   server:
     env_file: .env
-    user: "elixir"
+    user: "1000:1000"
     build:
       context: ./server
       target: dev
@@ -31,7 +31,6 @@ services:
 
   database:
     env_file: .env
-    user: "postgres"
     image: postgres:10-alpine
     volumes:
       - database:/var/lib/postgresql/data
