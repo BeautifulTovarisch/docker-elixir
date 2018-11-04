@@ -4,7 +4,7 @@
     "description": "front-end to CGIS pm dashboard",
     "main": "main.js",
     "scripts": {
-        "test": "jest",
+        "test": "jest --watchAll --colors",
         "build": "webpack --config webpack.production.js",
         "dev-server": "webpack-dev-server --hot --config webpack.dev.js",
         "start": "run-p dev-server test"
