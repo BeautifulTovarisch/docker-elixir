@@ -17,11 +17,10 @@ WORKDIR /home/nodejs
 COPY package.json .
 COPY yarn.lock .
 
-RUN yarn
+RUN yarn \
+    && yarn cache clean
 
 COPY --chown=nodejs:nodejs . /home/nodejs
-
-RUN chmod 777 /home/nodejs/node_modules
 
 RUN yarn run build
 
