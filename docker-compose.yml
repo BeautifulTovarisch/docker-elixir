@@ -17,12 +17,12 @@ services:
 
   server:
     env_file: .env
-    user: "${USER}:${USER}"
+    user: "${USER_ID}:${USER_ID}"
     build:
       context: ./server
       target: dev
     volumes:
-      - ./server:/elixir
+      - ./server:/home/elixir
     networks:
       - frontend
       - backend

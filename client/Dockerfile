@@ -14,8 +14,8 @@ USER nodejs
 
 WORKDIR /home/nodejs
 
-COPY package.json .
-COPY yarn.lock .
+COPY --chown=nodejs:nodejs package.json .
+COPY --chown=nodejs:nodejs yarn.lock .
 
 RUN yarn \
     && yarn cache clean
