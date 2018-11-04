@@ -1,19 +1,33 @@
+#################### Development Image ####################
+
 FROM node:8.12.0 as dev
 
-WORKDIR /app
+RUN addgroup --gid 999 nodejs
+
+RUN adduser --gecos \
+    --disabled-password \
+    --uid 999 \
+    --gid 999 \
+    nodejs
+
+USER nodejs
+
+WORKDIR /home/nodejs
 
 COPY package.json .
 COPY yarn.lock .
 
 RUN yarn
 
-COPY . /app
+COPY --chown=nodejs:nodejs . /home/nodejs
+
+RUN chmod 777 /home/nodejs/node_modules
 
 RUN yarn run build
 
 CMD [ "npm", "start" ]
 
-# Production Image
+#################### Production Image ####################
 
 FROM nginx:1.15.2 as production
 
@@ -27,7 +41,7 @@ RUN adduser --gecos \
 
 USER nginx
 
-WORKDIR /home/nodejs
+WORKDIR /home/nginx
 
 COPY --from=build /app/dist /home/nginx/www
 COPY --from=build /app/index.html /home/nginx/www/index.html

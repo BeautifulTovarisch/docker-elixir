@@ -1,18 +1,5 @@
 FROM elixir:1.7.3 as dev
 
-WORKDIR /app
-
-COPY . /app
-
-# recommended force for non-interactive use
-RUN mix local.hex --force
-RUN mix archive.install --force \
-    https://github.com/phoenixframework/archives/raw/master/phx_new.ez
-
-# Production Image
-
-FROM elixir:1.7.3 as production
-
 RUN addgroup --gid 999 elixir
 RUN adduser --gecos \
     --disabled-password \
@@ -21,5 +8,20 @@ RUN adduser --gecos \
     elixir
 
 USER elixir
+
+WORKDIR /home/elixir
+
+COPY --chown=elixir:elixir . /home/elixir
+
+# recommended force for non-interactive use
+RUN mix local.hex --force
+RUN mix archive.install --force \
+    https://github.com/phoenixframework/archives/raw/master/phx_new.ez
+
+RUN mix compile
+
+# Production Image
+
+FROM elixir:1.7.3 as production
 
 # TODO :: copy compiled project, run as elixir

@@ -3,15 +3,15 @@ services:
 
   client:
     env_file: .env
-    user: "${USER}:${USER}"
+    user: "${USER_ID}:${USER_ID}"
     build:
       context: ./client
       target: dev
     ports:
       - "${WEBPACK_PORT}:${WEBPACK_PORT}"
     volumes:
-      - ./client:/app
-      - client_modules:/app/node_modules
+      - ./client:/home/nodejs
+      - client_modules:/home/nodejs/node_modules
     networks:
       - frontend
 
@@ -22,7 +22,7 @@ services:
       context: ./server
       target: dev
     volumes:
-      - ./server:/app
+      - ./server:/elixir
     networks:
       - frontend
       - backend
