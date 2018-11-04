@@ -2,18 +2,14 @@ FROM node:8.12.0 as dev
 
 WORKDIR /app
 
-RUN chown -R node:node /app
-
 COPY package.json .
 COPY yarn.lock .
 
 RUN yarn
 
-COPY --chown=node:node . /app
+COPY . /app
 
 RUN yarn run build
-
-USER node
 
 CMD [ "npm", "start" ]
 
