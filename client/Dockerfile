@@ -1,4 +1,4 @@
-FROM node:8.11.3 as dev
+FROM node:8.12.0 as dev
 
 RUN addgroup --gid 999 nodejs
 

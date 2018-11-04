@@ -10,19 +10,19 @@ services:
     ports:
       - "${WEBPACK_PORT}:${WEBPACK_PORT}"
     volumes:
-      - ./client:/app
-      - client_modules:/app/node_modules
+      - ./client:/home/nodejs
+      - client_modules:/home/nodejs/node_modules
     networks:
       - frontend
 
   server:
     env_file: .env
-    user: 999:999
+    user: "elixir"
     build:
       context: ./server
       target: dev
     volumes:
-      - ./server:/app
+      - ./server:/home/elixir
     networks:
       - frontend
       - backend
@@ -31,7 +31,7 @@ services:
 
   database:
     env_file: .env
-    user: 999:999
+    user: "postgres"
     image: postgres:10-alpine
     volumes:
       - database:/var/lib/postgresql/data

@@ -1,7 +1,23 @@
 FROM elixir:1.7.3 as dev
 
-WORKDIR /app
+RUN addgroup --gid 999 elixir
+RUN adduser --gecos \
+    --disabled-password \
+    --uid 999 \
+    --gid 999 \
+    elixir
 
-USER default
+USER elixir
 
-RUN mix local.hex
+WORKDIR /home/elixir
+
+COPY mix.exs /home/elixir
+
+RUN mix local.hex --if-missing
+RUN mix deps.get
+
+COPY --chown=elixir:elixir . /home/elixir
+
+RUN mix compile
+
+RUN ls -lrt
