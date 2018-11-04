@@ -1,12 +1,23 @@
 FROM node:8.11.3 as dev
-WORKDIR /app
+
+RUN addgroup --gid 999 nodejs
+
+RUN adduser --gecos \
+    --disabled-password \
+    --uid 999 \
+    --gid 999 \
+    nodejs
+
+USER nodejs
+
+WORKDIR /home/nodejs
 
 COPY package.json .
 COPY yarn.lock .
 
 RUN yarn
 
-COPY . /app
+COPY --chown=nodejs:nodejs . /home/nodejs
 
 RUN yarn run build
 
@@ -16,8 +27,8 @@ CMD [ "npm", "start" ]
 
 FROM nginx:1.15.2-alpine
 
-COPY --from=build /app/dist /app/www
-COPY --from=build /app/index.html /app/www/index.html
+COPY --from=build /home/nodejs/dist /home/nodejs/www
+COPY --from=build /home/nodejs/index.html /home/nodejs/www/index.html
 
 COPY nginx.conf /etc/nginx/
 
