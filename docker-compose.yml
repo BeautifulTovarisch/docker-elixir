@@ -3,6 +3,7 @@ services:
 
   client:
     env_file: .env
+    user: "${USER}:${USER}"
     build:
       context: ./client
       target: dev

@@ -6,8 +6,8 @@ COPY . /app
 
 # recommended force for non-interactive use
 RUN mix local.hex --force
-RUN mix deps.get
-RUN mix compile
+RUN mix archive.install --force \
+    https://github.com/phoenixframework/archives/raw/master/phx_new.ez
 
 # Production Image
 
