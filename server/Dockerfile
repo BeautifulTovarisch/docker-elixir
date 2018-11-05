@@ -27,6 +27,8 @@ COPY --chown=elixir:elixir . /home/elixir
 
 RUN mix compile
 
+CMD [ "iex", "-S", "mix" ]
+
 # Production Image
 
 FROM elixir:1.7.3 as production
