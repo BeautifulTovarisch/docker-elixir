@@ -1,9 +1,9 @@
-defmodule App.Mixfile do
+defmodule Api.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :app,
+      app: :api,
       version: "0.0.1",
       elixir: "~> 1.4",
       elixirc_paths: elixirc_paths(Mix.env),
@@ -19,7 +19,7 @@ defmodule App.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {App.Application, []},
+      mod: {Api.Application, []},
       extra_applications: [:logger, :runtime_tools]
     ]
   end
@@ -38,8 +38,7 @@ defmodule App.Mixfile do
       {:phoenix_ecto, "~> 3.2"},
       {:postgrex, ">= 0.0.0"},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"},
-      {:plug_cowboy, "~> 1.0"}
+      {:cowboy, "~> 1.0"}
     ]
   end
 
