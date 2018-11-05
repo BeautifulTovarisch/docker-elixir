@@ -17,12 +17,14 @@ COPY --chown=elixir:elixir mix.exs /home/elixir
 COPY --chown=elixir:elixir mix.lock /home/elixir
 
 # Recommended force for non-interactive use
-RUN mix local.hex --force
-RUN mix local.rebar --force
-RUN mix archive.install --force \
+RUN mix local.hex --force \
+    && mix local.rebar --force \
+    && mix archive.install --force \
     https://github.com/phoenixframework/archives/raw/master/phx_new.ez
 
 RUN mix deps.get
+
+RUN mix compile
 
 COPY --chown=elixir:elixir . /home/elixir
 
