@@ -34,4 +34,5 @@ RUN adduser --gecos \
 
 USER elixir
 
+# TODO :: consider using distillery to create a 'release' for CI
 # TODO :: copy compiled project, run as elixir
