@@ -12,6 +12,7 @@ config :api, ApiWeb.Endpoint,
   secret_key_base: "u5VKrpZI+jBFZ2PfqyUie+RmwObHRSIVsjwtmdkvS/O/R1Ry4jtRh2BG82pfAeGT"
 
 # Configure your database
+# TODO :: consider replacing values with docker secrets
 config :api, Api.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",

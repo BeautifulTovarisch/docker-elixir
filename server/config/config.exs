@@ -11,7 +11,7 @@ config :api,
 
 # Configures the endpoint
 config :api, ApiWeb.Endpoint,
-  url: [host: "localhost"],
+  url: [host: System.get_env("HOST")],
   secret_key_base: "3Me+rJyHH4VOWBEpv4TiTcrZpxhbukrjNb0iXPLti+Ws7GVq5GY7Ok+HvaqMoUgd",
   render_errors: [view: ApiWeb.ErrorView, accepts: ~w(json)],
   pubsub: [name: Api.PubSub,

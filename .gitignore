@@ -27,7 +27,7 @@ erl_crash.dump
 
 # Ignore package tarball (built via "mix hex.build").
 app-*.tar# App artifacts
-_build
+
 db
 
 # Generated on crash by the VM
@@ -44,4 +44,5 @@ _build
 
 deps/
 
-.mix
+.mix/
+.hex/

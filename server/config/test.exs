@@ -12,8 +12,8 @@ config :logger, level: :warn
 # Configure your database
 config :api, Api.Repo,
   adapter: Ecto.Adapters.Postgres,
-  username: "postgres",
-  password: "postgres",
-  database: "api_test",
-  hostname: "localhost",
+  username: System.get_env("POSTGRES_USER"),
+  password: System.get_env("POSTGRES_PASSWORD"),
+  database: System.get_env("POSTGRES_DB"),
+  hostname: "database",
   pool: Ecto.Adapters.SQL.Sandbox
