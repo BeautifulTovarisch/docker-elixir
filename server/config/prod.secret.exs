@@ -8,13 +8,14 @@ use Mix.Config
 # file or create a script for recreating it, since it's
 # kept out of version control and might be hard to recover
 # or recreate for your teammates (or yourself later on).
-config :app, AppWeb.Endpoint,
-  secret_key_base: "wCJ/aK6X+rBTOG2vfKNo56xGjTy4qdsLrtXYWMGVS5KUd0ltpbXxv9JaWtONE5z8"
+config :api, ApiWeb.Endpoint,
+  secret_key_base: "u5VKrpZI+jBFZ2PfqyUie+RmwObHRSIVsjwtmdkvS/O/R1Ry4jtRh2BG82pfAeGT"
 
 # Configure your database
-config :app, App.Repo,
+# TODO :: consider replacing values with docker secrets
+config :api, Api.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "app_prod",
+  database: "api_prod",
   pool_size: 15
